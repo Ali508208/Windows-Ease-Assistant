@@ -211,12 +211,12 @@ def get_response():
     except Exception as e:
         return jsonify({'error': f"Error fetching response from model: {str(e)}"}), 500
     
-    # Generate rewritten response using Gemini API
+    # Generate rewritten response using 
     try:
         
         save_conversation(query,model_response, user_id)
     except Exception as e:
-        return jsonify({'error': f"Error with Gemini API: {str(e)}"}), 500
+        return jsonify({'error': f"Error with Response: {str(e)}"}), 500
 
     return jsonify({
         "response": model_response
