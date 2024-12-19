@@ -92,8 +92,6 @@ def index():
     return render_template('index.html')
 
 
-# Set your Gemini API key
-genai.configure(api_key='AIzaSyCCu3DVz23qRK77Nxi3x71hndblJ11Q4Rg')
 
 # Route for the Sign-In page
 @app.route('/signin', methods=['GET'])
@@ -215,15 +213,13 @@ def get_response():
     
     # Generate rewritten response using Gemini API
     try:
-        gemini_model = genai.GenerativeModel("gemini-1.5-flash")
-        gemini_response = gemini_model.generate_content(f"Rewrite the following query into a concise 3–4 line response:\n\n{query}")
-        rewritten_response = "\n".join([chunk.text for chunk in gemini_response])
-        save_conversation(query, rewritten_response, user_id)
+        
+        save_conversation(query,model_response, user_id)
     except Exception as e:
         return jsonify({'error': f"Error with Gemini API: {str(e)}"}), 500
 
     return jsonify({
-        "response": rewritten_response  # Only return the rewritten Gemini response
+        "response": model_response
     })
 
 
